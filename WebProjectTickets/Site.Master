@@ -1,0 +1,87 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.Master.cs" Inherits="WebProjectTickets.Site" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+
+   <meta charset="utf-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" ="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" ="anonymous">    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" />
+ <script src="~/Content/Js/toastr.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        function openModal() {
+            $("#myModal").modal({
+                backdrop: 'static',
+                keyboard: false
+            });
+            $("#myModal").modal("show");
+        }
+    </script>
+    <title><%: Page.Title %> - Tickets App</title>
+    
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="#">Navbar</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="http://localhost:59242/Default.aspx">Principal <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Registros
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/Registros/WebFormCliente.aspx">Usuarios</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/Registros/WebFormTickets.aspx">Usuarios</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/Registros/WebFormTipoTicket.aspx">Usuarios</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/Registros/WebFormUsuario.aspx">Usuarios</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/Registros/WebFormVentaTickets.aspx">Usuarios</a>
+                                <div class="dropdown-divider"></div>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Consultas
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/Consultas/WebConsultCuenta.aspx">Cuentas</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/Consultas/WebConsultDeposito.aspx">Depositos</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/Consultas/WebConsultPrestamo.aspx">Prestamos</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Ayuda</a>
+                        </li>
+                    </ul>
+                    <div class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </div>
+                </div>
+            </nav>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </form>
+       <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" ="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" ="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" ="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" ="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" ="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" ="anonymous"></script><link href="~/Content/Css/toastr.css" type="text/css" rel="stylesheet" />
+    
+</body>
+</html>
