@@ -28,5 +28,13 @@ namespace Entities
         {
             return Nombres;
         }
+
+        public Usuario(int usuarioId, string nombres, string email, string clave)
+        {
+            UsuarioId = usuarioId;
+            Nombres = nombres;
+            Email = email;
+            Clave = clave;
+        }
     }
 }

@@ -30,5 +30,29 @@ namespace Entities
         {
             this.Detalle.Add(new ConsultorioVenta(Id, VentaTicketId, ClienteId, TicketId, Cantidad, Precio, Importe));
         }
+
+        public VentaTicket(int ventaTicketId, int clienteId, int ticketId, DateTime fecha, int subTotal, int itbis, int total)
+        {
+            VentaTicketId = ventaTicketId;
+            ClienteId = clienteId;
+            TicketId = ticketId;
+            Fecha = fecha;
+            SubTotal = subTotal;
+            Itbis = itbis;
+            Total = total;
+            Detalle = new List<ConsultorioVenta>();
+        }
+
+        public VentaTicket(int ventaTicketId, int clienteId, int ticketId, DateTime fecha, int subTotal, int itbis, int total, List<ConsultorioVenta> detalle)
+        {
+            VentaTicketId = ventaTicketId;
+            ClienteId = clienteId;
+            TicketId = ticketId;
+            Fecha = fecha;
+            SubTotal = subTotal;
+            Itbis = itbis;
+            Total = total;
+            Detalle = detalle;
+        }
     }
 }

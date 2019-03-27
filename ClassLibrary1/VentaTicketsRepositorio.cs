@@ -4,13 +4,19 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace BLL
 {
-    public class VentaTicketsRepositorio : RepositorioBase<VentaTicket>
+    public class VentaTicketRepositorio : RepositorioBase<VentaTicket>
     {
+        public VentaTicketRepositorio() : base()
+        {
+
+        }
+
         public override bool Guardar(VentaTicket ventaTicket)
         {
             bool paso = false;
@@ -49,8 +55,9 @@ namespace BLL
             {
                 Cliente.Deuda += Convert.ToInt32(ventaTicket.Total);
                 ClienteAnt.Deuda -= Convert.ToInt32(ventaTicketAnt.Total);
-                ClientesRepositorio.Modificar(Cliente);
-                ClientesRepositorio.Modificar(ClienteAnt);
+                contexto.Entry(Cliente).State =EntityState.Modified;
+                contexto.Entry(ClienteAnt).State = EntityState.Modified;
+                contexto.SaveChanges();
             }
         }
 
@@ -88,7 +95,8 @@ namespace BLL
 
                 var cliente = contexto.Cliente.Find(ventaTicket.ClienteId);
                 cliente.Deuda += Convert.ToInt32(modificado);
-                ClientesRepositorio.Modificar(cliente);
+                contexto.Entry(cliente).State = EntityState.Modified;
+                contexto.SaveChanges();
 
                 contexto.Entry(ventaTicket).State = EntityState.Modified;
                 if (contexto.SaveChanges() > 0)
@@ -164,6 +172,17 @@ namespace BLL
                 throw;
             }
             return ventaTicket;
+        }
+
+        public override List<VentaTicket> GetList(Expression<Func<VentaTicket, bool>> expression)
+        {
+            var lista = _contexto.VentaTicket.Include(x => x.Detalle).Where(expression).ToList();
+            return lista;
+        }
+
+        public static int Importe(int cantidad, int precio)
+        {
+            return cantidad * precio;
         }
     }
 }

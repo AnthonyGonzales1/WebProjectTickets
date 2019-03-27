@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.Master.cs" Inherits="WebProjectTickets.Site" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.Master.cs" Inherits="WebProjectTickets.Site1" %>
 
 <!DOCTYPE html>
 
@@ -36,21 +36,21 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active">
-                            <a class="nav-link" href="http://localhost:59242/Default.aspx">Principal <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="http://localhost:60312/Default.aspx">Principal <span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Registros
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="/Registros/WebFormCliente.aspx">Usuarios</a>
+                                <a class="dropdown-item" href="/Registros/WebFormCliente.aspx">Cliente</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="/Registros/WebFormTickets.aspx">Usuarios</a>
+                                <a class="dropdown-item" href="/Registros/WebFormTickets.aspx">Tickets</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="/Registros/WebFormTipoTicket.aspx">Usuarios</a>
+                                <a class="dropdown-item" href="/Registros/WebFormTipoTicket.aspx">Tipo Tickets</a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="/Registros/WebFormUsuario.aspx">Usuarios</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="/Registros/WebFormVentaTickets.aspx">Usuarios</a>
+                                <a class="dropdown-item" href="/Registros/WebFormVentaTickets.aspx">Venta Tickets</a>
                                 <div class="dropdown-divider"></div>
                             </div>
                         </li>
@@ -58,12 +58,16 @@
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Consultas
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="/Consultas/WebConsultCuenta.aspx">Cuentas</a>
+                                <a class="dropdown-item" href="/Consultas/WebConsultCliente.aspx">Cliente</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="/Consultas/WebConsultDeposito.aspx">Depositos</a>
+                                <a class="dropdown-item" href="/Consultas/WebConsultTickets.aspx">Tickets</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="/Consultas/WebConsultPrestamo.aspx">Prestamos</a>
-                            </div>
+                                <a class="dropdown-item" href="/Consultas/WebConsultTipoTicket.aspx">Tipo Tickets</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/Consultas/WebConsultUsuario.aspx">Usuarios</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/Consultas/WebConsultVentaTickets.aspx">Venta Tickets</a>
+                                <div class="dropdown-divider"></div></div>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Ayuda</a>

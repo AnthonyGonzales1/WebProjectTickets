@@ -14,19 +14,26 @@ namespace Entities
         public int TipoTicketId { get; set; }
         public string Descripcion { get; set; }
         public string Lugar { get; set; }
-        public DateTime FechaHora { get; set; }
+        public DateTime Fecha { get; set; }
 
         public TipoTicket()
         {
             TipoTicketId = 0;
             Descripcion = string.Empty;
             Lugar = string.Empty;
-            FechaHora = DateTime.Now;
+            Fecha = DateTime.Now;
         }
 
         public override string ToString()
         {
             return Descripcion;
+        }
+
+        public TipoTicket(int tipoTicketId, string descripcion, string lugar)
+        {
+            TipoTicketId = tipoTicketId;
+            Descripcion = descripcion;
+            Lugar = lugar;
         }
     }
 }

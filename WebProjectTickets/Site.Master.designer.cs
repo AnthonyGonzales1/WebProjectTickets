@@ -10,7 +10,7 @@
 namespace WebProjectTickets {
     
     
-    public partial class Site {
+    public partial class Site1 {
         
         /// <summary>
         /// form1 control.

@@ -28,5 +28,13 @@ namespace Entities
         {
             return Nombres;
         }
+
+        public Cliente(int clienteId, string nombres, string telefono, int deuda)
+        {
+            ClienteId = clienteId;
+            Nombres = nombres;
+            Telefono = telefono;
+            Deuda = deuda;
+        }
     }
 }

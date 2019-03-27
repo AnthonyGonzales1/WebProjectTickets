@@ -25,5 +25,14 @@ namespace Entities
             Cantidad = 0;
             Precio = 0;
         }
+
+        public Ticket(int ticketId, string tipoTicket, string nombreEvento, int cantidad, int precio)
+        {
+            TicketId = ticketId;
+            TipoTicket = tipoTicket;
+            NombreEvento = nombreEvento;
+            Cantidad = cantidad;
+            Precio = precio;
+        }
     }
 }
