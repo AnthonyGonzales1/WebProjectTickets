@@ -55,9 +55,9 @@ namespace WebProjectTickets.Utilitarios
                  String.Format("toastr.{0}('{1}', '{2}');", type.ToLower(), message, title), addScriptTags: true);
         }
         
-        public static List<Cliente> clientes(Expression<Func<Cliente, bool>> filtro)
+        public static List<Cliente> clientes()
         {
-            filtro = p => true;
+            Expression<Func<Cliente, bool>> filtro = p => true;
             RepositorioBase<Cliente> repositorio = new RepositorioBase<Cliente>();
             List<Cliente> list = new List<Cliente>();
 
@@ -66,9 +66,9 @@ namespace WebProjectTickets.Utilitarios
             return list;
         }
 
-        public static List<Ticket> tickets(Expression<Func<Ticket, bool>> filtro)
+        public static List<Ticket> tickets()
         {
-            filtro = p => true;
+            Expression<Func<Ticket, bool>> filtro = p => true;
             RepositorioBase<Ticket> repositorio = new RepositorioBase<Ticket>();
             List<Ticket> list = new List<Ticket>();
 
@@ -77,9 +77,9 @@ namespace WebProjectTickets.Utilitarios
             return list;
         }
 
-        public static List<TipoTicket> tipoTickets(Expression<Func<TipoTicket, bool>> filtro)
+        public static List<TipoTicket> tipoTickets()
         {
-            filtro = p => true;
+            Expression<Func<TipoTicket, bool>> filtro = p => true;
             RepositorioBase<TipoTicket> repositorio = new RepositorioBase<TipoTicket>();
             List<TipoTicket> list = new List<TipoTicket>();
 
@@ -88,9 +88,9 @@ namespace WebProjectTickets.Utilitarios
             return list;
         }
 
-        public static List<Usuario> usuarios(Expression<Func<Usuario, bool>> filtro)
+        public static List<Usuario> usuarios()
         {
-            filtro = p => true;
+            Expression<Func<Usuario, bool>> filtro = p => true;
             RepositorioBase<Usuario> repositorio = new RepositorioBase<Usuario>();
             List<Usuario> list = new List<Usuario>();
 
@@ -99,9 +99,9 @@ namespace WebProjectTickets.Utilitarios
             return list;
         }
 
-        public static List<VentaTicket> ventaTickets(Expression<Func<VentaTicket, bool>> filtro)
+        public static List<VentaTicket> ventaTickets()
         {
-            filtro = p => true;
+            Expression<Func<VentaTicket, bool>> filtro = p => true;
             RepositorioBase<VentaTicket> repositorio = new RepositorioBase<VentaTicket>();
             List<VentaTicket> list = new List<VentaTicket>();
 
@@ -110,7 +110,7 @@ namespace WebProjectTickets.Utilitarios
             return list;
         }
 
-        public static List<Cliente> FiltrarCliente(int index, string buscar, DateTime desde, DateTime hasta)
+        public static List<Cliente> FiltrarCliente(int index, string buscar)
         {
             Expression<Func<Cliente, bool>> filtro = p => true;
             RepositorioBase<Cliente> repositorio = new RepositorioBase<Cliente>();
@@ -124,11 +124,9 @@ namespace WebProjectTickets.Utilitarios
                 case 1://ClienteId
                     filtro = p => p.ClienteId == id;
                     break;
-
                 case 3://Nombres
                     filtro = p => p.Nombres.Contains(buscar);
                     break;
-
                 case 4://Telefono
                     filtro = p => p.Telefono.Contains(buscar);
                     break;
@@ -140,7 +138,7 @@ namespace WebProjectTickets.Utilitarios
             return list;
         }
 
-        public static List<Ticket> FiltrarTicket(int index, string buscar, DateTime desde, DateTime hasta)
+        public static List<Ticket> FiltrarTicket(int index, string buscar)
         {
             Expression<Func<Ticket, bool>> filtro = p => true;
             RepositorioBase<Ticket> repositorio = new RepositorioBase<Ticket>();
@@ -188,11 +186,9 @@ namespace WebProjectTickets.Utilitarios
                 case 2://TipoTicket
                     filtro = p => p.TipoTicketId == id && p.Fecha >= desde && p.Fecha <= hasta;
                     break;
-
                 case 3://Descripcion
                     filtro = p => p.Descripcion.Contains(buscar) && p.Fecha >= desde && p.Fecha <= hasta;
                     break;
-
                 case 4://Lugar
                     filtro = p => p.Lugar.Contains(buscar) && p.Fecha >= desde && p.Fecha <= hasta;
                     break;
@@ -201,7 +197,7 @@ namespace WebProjectTickets.Utilitarios
             return list;
         }
 
-        public static List<Usuario> FiltrarUsuario(int index, string buscar, DateTime desde, DateTime hasta)
+        public static List<Usuario> FiltrarUsuario(int index, string buscar)
         {
             Expression<Func<Usuario, bool>> filtro = p => true;
             RepositorioBase<Usuario> repositorio = new RepositorioBase<Usuario>();
@@ -215,11 +211,9 @@ namespace WebProjectTickets.Utilitarios
                 case 1://UsuarioId
                     filtro = p => p.UsuarioId == id;
                     break;
-
                 case 2://Nombre
                     filtro = p => p.Nombres.Contains(buscar);
                     break;
-
                 case 3://Email
                     filtro = p => p.Email.Contains(buscar);
                     break;

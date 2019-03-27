@@ -178,7 +178,7 @@ namespace WebProjectTickets.Registros
 
             RepositorioBase<Ticket> repositorio = new RepositorioBase<Ticket>();
 
-            Ticket ticket = TicketDropDownList.SelectedItem;
+            Ticket ticket = (Ticket)TicketDropDownList.SelectedItem;
 
             int CantidadCotizada = 0;
             foreach (var item in detalle)

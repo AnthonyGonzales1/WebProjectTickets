@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Reporting.WebForms;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,7 +17,9 @@ namespace WebProjectTickets.Consultas
             {
                 DesdeTextBox.Text = DateTime.Now.ToString("yyyy-MM-dd");
                 HastaTextBox.Text = DateTime.Now.ToString("yyyy-MM-dd");
+                ModalReport();
             }
+
         }
 
         private int ToInt(object valor)
@@ -27,16 +30,27 @@ namespace WebProjectTickets.Consultas
             return retorno;
         }
 
+        public void ModalReport()
+        {
+            VentaTicketReportViewer.ProcessingMode = ProcessingMode.Local;
+            VentaTicketReportViewer.Reset();
+
+            VentaTicketReportViewer.LocalReport.ReportPath = Server.MapPath(@"~\Reportes\VentaTicketReport.rdlc");
+            VentaTicketReportViewer.LocalReport.DataSources.Clear();
+            VentaTicketReportViewer.LocalReport.DataSources.Add(new ReportDataSource("VentaTickets", Utilitarios.Utils.ventaTickets()));
+            VentaTicketReportViewer.LocalReport.Refresh();
+        }
+
         protected void BuscarLinkButton_Click(object sender, EventArgs e)
         {
             int id = Utils.ToInt(BuscarTextBox.Text);
             int index = ToInt(FiltroDropDownList.SelectedIndex);
             DateTime desde = Utils.ToDateTime(DesdeTextBox.Text);
             DateTime hasta = Utils.ToDateTime(HastaTextBox.Text);
-            ClienteGridView.DataSource = Utilitarios.Utils.FiltrarCliente(index, BuscarTextBox.Text, desde, hasta);
+            ClienteGridView.DataSource = Utilitarios.Utils.FiltrarVenta(index, BuscarTextBox.Text, desde, hasta);
             ClienteGridView.DataBind();
 
-            Label1.Text = FiltroDropDownList.Text.ToString();
+            ModalLabel.Text = FiltroDropDownList.Text.ToString();
 
         }
 

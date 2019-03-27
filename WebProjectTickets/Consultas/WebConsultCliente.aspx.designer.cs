@@ -13,6 +13,15 @@ namespace WebProjectTickets.Consultas {
     public partial class WebConsultCliente {
         
         /// <summary>
+        /// ScriptManager1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager ScriptManager1;
+        
+        /// <summary>
         /// Label1 control.
         /// </summary>
         /// <remarks>
@@ -58,6 +67,15 @@ namespace WebProjectTickets.Consultas {
         protected global::System.Web.UI.WebControls.LinkButton BuscarLinkButton;
         
         /// <summary>
+        /// ModalLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label ModalLabel;
+        
+        /// <summary>
         /// ClienteGridView control.
         /// </summary>
         /// <remarks>
@@ -67,12 +85,12 @@ namespace WebProjectTickets.Consultas {
         protected global::System.Web.UI.WebControls.GridView ClienteGridView;
         
         /// <summary>
-        /// ImprimirLinkButton control.
+        /// ClienteReportViewer control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton ImprimirLinkButton;
+        protected global::Microsoft.Reporting.WebForms.ReportViewer ClienteReportViewer;
     }
 }

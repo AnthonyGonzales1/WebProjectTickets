@@ -107,7 +107,6 @@
     <Content Include="Content\toastr.scss" />
     <Content Include="Content\toastr.less" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
-    <Content Include="Reportes\ClienteViewer.aspx" />
     <Content Include="Reportes\TicketViewer.aspx" />
     <Content Include="Reportes\TipoTicketViewer.aspx" />
     <Content Include="Reportes\UsuarioViewer.aspx" />
@@ -227,13 +226,6 @@
     </Compile>
     <Compile Include="Registros\WebFormVentaTickets.aspx.designer.cs">
       <DependentUpon>WebFormVentaTickets.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Reportes\ClienteViewer.aspx.cs">
-      <DependentUpon>ClienteViewer.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Reportes\ClienteViewer.aspx.designer.cs">
-      <DependentUpon>ClienteViewer.aspx</DependentUpon>
     </Compile>
     <Compile Include="Reportes\TicketViewer.aspx.cs">
       <DependentUpon>TicketViewer.aspx</DependentUpon>
