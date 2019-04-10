@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using WebProjectTickets.Utilitarios;
 
 namespace WebProjectTickets.Registros
 {
@@ -13,17 +14,25 @@ namespace WebProjectTickets.Registros
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!Page.IsPostBack)
+            {
+                int id = Utils.ToInt(Request.QueryString["id"]);
+                if (id > 0)
+                {
+                    RepositorioBase<TipoTicket> repositorio = new RepositorioBase<TipoTicket>();
+                    var registro = repositorio.Buscar(id);
+
+                    if (registro == null)
+                    {
+                        Utils.ShowToastr(this.Page, "Registro no encontrado", "Error", "error");
+                    }
+                    else
+                    {
+                        LlenarCampos(registro);
+                    }
+                }
+            }
             FechaTextBox.Text = DateTime.Now.Date.ToString("yyyy-MM-dd");
-        }
-
-        protected void CallModal(string mensaje)
-        {
-            Label label = (Label)Master.FindControl("MessageLabel");
-            if (label != null)
-                label.Text = mensaje;
-
-            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Alert",
-                            "$(function() { openModal(); });", true);
         }
 
         public static int ToInt(string valor)
@@ -47,7 +56,8 @@ namespace WebProjectTickets.Registros
             return new TipoTicket(
                 ToInt(TipoTicketIdTextBox.Text),
                 DescripcionTextBox.Text,
-                LugarTextBox.Text
+                LugarTextBox.Text,
+                DateTime.Parse(FechaTextBox.Text)
                 );
         }
 
@@ -56,6 +66,7 @@ namespace WebProjectTickets.Registros
             TipoTicketIdTextBox.Text = tipoTicket.TipoTicketId.ToString();
             DescripcionTextBox.Text = tipoTicket.Descripcion;
             LugarTextBox.Text = tipoTicket.Lugar;
+            FechaTextBox.Text = tipoTicket.Fecha.ToString("yyyy-MM-dd");
         }
 
         protected void BuscarButton_Click(object sender, EventArgs e)
@@ -63,10 +74,14 @@ namespace WebProjectTickets.Registros
             RepositorioBase<TipoTicket> repositorio = new RepositorioBase<TipoTicket>();
             TipoTicket tipoTicket = repositorio.Buscar(ToInt(TipoTicketIdTextBox.Text));
             if (tipoTicket != null)
+            {
+                Utils.ShowToastr(this.Page, "Guardado", "Exito", "success");
                 LlenarCampos(tipoTicket);
+            }
             else
-                CallModal("Este Tipo de Ticket no existe");
-
+            {
+                Utils.ShowToastr(this.Page, "Id no existe", "Error", "error");
+            }
         }
 
         protected void NuevoButton_Click(object sender, EventArgs e)
@@ -78,13 +93,13 @@ namespace WebProjectTickets.Registros
         {
             if (Page.IsValid)
             {
-                TipoTicketRepositorio repositorio = new TipoTicketRepositorio();
+                RepositorioBase<TipoTicket> repositorio = new RepositorioBase<TipoTicket>();
 
                 if (ToInt(TipoTicketIdTextBox.Text) == 0)
                 {
                     if (repositorio.Guardar(LlenaClase()))
                     {
-                        CallModal("Se a registrado el Tipo del Ticket");
+                        Utils.ShowToastr(this.Page, "Guardado", "Exito", "success");
                         Limpiar();
                     }
                 }
@@ -92,7 +107,7 @@ namespace WebProjectTickets.Registros
                 {
                     if (repositorio.Modificar(LlenaClase()))
                     {
-                        CallModal("Se no se pudo registrar el Tipo del Ticket");
+                        Utils.ShowToastr(this.Page, "No se pudo guardar", "Error", "error");
                         Limpiar();
                     }
                 }
@@ -108,11 +123,11 @@ namespace WebProjectTickets.Registros
             {
                 if (repositorio.Eliminar(ToInt(TipoTicketIdTextBox.Text)))
                 {
-                    CallModal("Se a eliminado el Tipo del Ticket");
+                    Utils.ShowToastr(this.Page, "Eliminado", "Exito", "success");
                     Limpiar();
                 }
                 else
-                    CallModal("Se no se pudo eliminar el Tipo del Ticket");
+                    Utils.ShowToastr(this.Page, "No existe", "Error", "error");
             }
         }
     }

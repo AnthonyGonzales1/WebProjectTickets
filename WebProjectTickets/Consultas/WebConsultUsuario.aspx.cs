@@ -31,7 +31,7 @@ namespace WebProjectTickets.Consultas
 
             UsuarioReportViewer.LocalReport.ReportPath = Server.MapPath(@"~\Reportes\UsuarioReport.rdlc");
             UsuarioReportViewer.LocalReport.DataSources.Clear();
-            UsuarioReportViewer.LocalReport.DataSources.Add(new ReportDataSource("Usuarios", Utilitarios.Utils.usuarios()));
+            UsuarioReportViewer.LocalReport.DataSources.Add(new ReportDataSource("Usuario", Utilitarios.Utils.usuarios()));
             UsuarioReportViewer.LocalReport.Refresh();
         }
 
@@ -39,8 +39,8 @@ namespace WebProjectTickets.Consultas
         {
             int id = Utils.ToInt(BuscarTextBox.Text);
             int index = ToInt(FiltroDropDownList.SelectedIndex);
-            ClienteGridView.DataSource = Utilitarios.Utils.FiltrarTipo(index, BuscarTextBox.Text, desde, hasta);
-            ClienteGridView.DataBind();
+            UsuarioGridView.DataSource = Utilitarios.Utils.FiltrarUsuario(index, BuscarTextBox.Text);
+            UsuarioGridView.DataBind();
 
             ModalLabel.Text = FiltroDropDownList.Text.ToString();
         }

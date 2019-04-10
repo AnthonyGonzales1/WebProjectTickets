@@ -39,8 +39,8 @@ namespace WebProjectTickets.Consultas
         {
             int id = Utils.ToInt(BuscarTextBox.Text);
             int index = ToInt(FiltroDropDownList.SelectedIndex);
-            ClienteGridView.DataSource = Utilitarios.Utils.FiltrarTicket(index, BuscarTextBox.Text);
-            ClienteGridView.DataBind();
+            TicketGridView.DataSource = Utilitarios.Utils.FiltrarTicket(index, BuscarTextBox.Text);
+            TicketGridView.DataBind();
 
             ModalLabel.Text = FiltroDropDownList.Text.ToString();
         }

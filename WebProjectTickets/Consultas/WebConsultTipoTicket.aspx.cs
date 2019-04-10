@@ -42,8 +42,8 @@ namespace WebProjectTickets.Consultas
             int index = ToInt(FiltroDropDownList.SelectedIndex);
             DateTime desde = Utils.ToDateTime(DesdeTextBox.Text);
             DateTime hasta = Utils.ToDateTime(HastaTextBox.Text);
-            ClienteGridView.DataSource = Utilitarios.Utils.FiltrarTipo(index, BuscarTextBox.Text, desde, hasta);
-            ClienteGridView.DataBind();
+            TipoTicketGridView.DataSource = Utilitarios.Utils.FiltrarTipo(index, BuscarTextBox.Text, desde, hasta);
+            TipoTicketGridView.DataBind();
 
             ModalLabel.Text = FiltroDropDownList.Text.ToString();
         }

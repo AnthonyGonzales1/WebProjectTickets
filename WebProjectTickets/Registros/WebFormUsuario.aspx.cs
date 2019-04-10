@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using WebProjectTickets.Utilitarios;
 
 namespace WebProjectTickets.Registros
 {
@@ -13,19 +14,26 @@ namespace WebProjectTickets.Registros
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!Page.IsPostBack)
+            {
+                int id = Utils.ToInt(Request.QueryString["id"]);
+                if (id > 0)
+                {
+                    RepositorioBase<Usuario> repositorio = new RepositorioBase<Usuario>();
+                    var registro = repositorio.Buscar(id);
 
+                    if (registro == null)
+                    {
+                        Utils.ShowToastr(this.Page, "Registro no encontrado", "Error", "error");
+                    }
+                    else
+                    {
+                        LlenarCampos(registro);
+                    }
+                }
+            }
         }
-
-        protected void CallModal(string mensaje)
-        {
-            Label label = (Label)Master.FindControl("MessageLabel");
-            if (label != null)
-                label.Text = mensaje;
-
-            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Alert",
-                            "$(function() { openModal(); });", true);
-        }
-
+        
         public static int ToInt(string valor)
         {
             int retorno = 0;
@@ -38,12 +46,20 @@ namespace WebProjectTickets.Registros
         {
             Usuario usuario = new Usuario();
 
-            usuario.UsuarioId = Convert.ToInt32(UsuarioIdTextBox.Text);
+            usuario.UsuarioId = ToInt(UsuarioIdTextBox.Text);
             usuario.Nombres = NombreTextBox.Text;
             usuario.Email = EmailTextBox.Text;
             usuario.Clave = ClaveTextBox.Text;
 
             return usuario;
+        }
+
+        private void LlenarCampos(Usuario usuario)
+        {
+            UsuarioIdTextBox.Text = usuario.UsuarioId.ToString();
+            NombreTextBox.Text = usuario.Nombres;
+            EmailTextBox.Text = usuario.Email;
+            ClaveTextBox.Text = usuario.Clave;
         }
 
         private void Limpiar()
@@ -60,14 +76,14 @@ namespace WebProjectTickets.Registros
             Usuario usuario = repositorio.Buscar(ToInt(UsuarioIdTextBox.Text));
             if (usuario != null)
             {
-                UsuarioIdTextBox.Text = usuario.UsuarioId.ToString();
-                NombreTextBox.Text = usuario.Nombres;
-                EmailTextBox.Text = usuario.Email;
-                ClaveTextBox.Text = usuario.Clave;
+                LlenarCampos(usuario);
+                Utils.ShowToastr(this.Page, "Busqueda exitosa", "Exito", "success");
             }
             else
-                CallModal("Este Usuario no existe");
-
+            {
+                Limpiar();
+                Utils.ShowToastr(this.Page, "No se pudo encontrar el Préstamo especificado", "Error", "error");
+            }
         }
 
         protected void NuevoButton_Click(object sender, EventArgs e)
@@ -85,16 +101,15 @@ namespace WebProjectTickets.Registros
                 {
                     if (rep.Guardar(LlenaClase()))
                     {
-                        CallModal("Se guardo el Usuario");
+                        Utils.ShowToastr(this.Page, "Guardado", "Exito", "success");
                         Limpiar();
-
                     }
                 }
                 else
                 {
                     if (rep.Modificar(LlenaClase()))
                     {
-                        CallModal("Se modifico el Usuario");
+                        Utils.ShowToastr(this.Page, "Modificado", "Exito", "success");
                         Limpiar();
                     }
                 }
@@ -110,11 +125,11 @@ namespace WebProjectTickets.Registros
             {
                 if (repositorio.Eliminar(ToInt(UsuarioIdTextBox.Text)))
                 {
-                    CallModal("Se elimino el Usuario");
+                    Utils.ShowToastr(this.Page, "Eliminado", "Exito", "success");
                     Limpiar();
                 }
                 else
-                    CallModal("No se elimino el Usuario");
+                    Utils.ShowToastr(this.Page, "No se pudo eliminar", "Error", "error");
             }
         }
     }

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using WebProjectTickets.Utilitarios;
 
 namespace WebProjectTickets.Registros
 {
@@ -13,19 +14,25 @@ namespace WebProjectTickets.Registros
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            if (!Page.IsPostBack)
+            {
                 LlenarDropDown();
-            
-        }
+                int id = Utils.ToInt(Request.QueryString["id"]);
+                if (id > 0)
+                {
+                    RepositorioBase<Ticket> repositorio = new RepositorioBase<Ticket>();
+                    var registro = repositorio.Buscar(id);
 
-        protected void CallModal(string mensaje)
-        {
-            Label label = (Label)Master.FindControl("MessageLabel");
-            if (label != null)
-                label.Text = mensaje;
-
-            ScriptManager.RegisterStartupScript(Page, Page.GetType(), "Alert",
-                            "$(function() { openModal(); });", true);
+                    if (registro == null)
+                    {
+                        Utils.ShowToastr(this.Page, "Registro no encontrado", "Error", "error");
+                    }
+                    else
+                    {
+                        LlenarCampos(registro);
+                    }
+                }
+            }
         }
 
         public static int ToInt(string valor)
@@ -38,37 +45,41 @@ namespace WebProjectTickets.Registros
 
         private void LlenarDropDown()
         {
-            RepositorioBase<Ticket> rep = new RepositorioBase<Ticket>();
+            RepositorioBase<TipoTicket> rep = new RepositorioBase<TipoTicket>();
             TipoTicketDropDownList.DataSource = rep.GetList(x => true);
-            TipoTicketDropDownList.DataValueField = "CuentaId";
-            TipoTicketDropDownList.DataTextField = "Nombre";
+            TipoTicketDropDownList.DataValueField = "TipoTicketId";
+            TipoTicketDropDownList.DataTextField = "Descripcion";
             TipoTicketDropDownList.DataBind();
             TipoTicketDropDownList.Items.Insert(0, new ListItem("", ""));
+
         }
 
         private void Limpiar()
         {
             TicketIdTextBox.Text = string.Empty;
-            NombreEventoTextBox.Text = DateTime.Now.Date.ToString("yyyy-MM-dd");
+            TipoTicketDropDownList.SelectedValue = null;
+            NombreEventoTextBox.Text = string.Empty;
             CantidaTextBox.Text = string.Empty;
             PrecioTextBox.Text = string.Empty;
         }
 
         private Ticket LlenaClase()
         {
-            return new Ticket(
-                ToInt(TicketIdTextBox.Text),
-                TipoTicketDropDownList.SelectedValue,
-                NombreEventoTextBox.Text,
-                ToInt(CantidaTextBox.Text),
-                ToInt(PrecioTextBox.Text)
-                );
+            Ticket ticket = new Ticket();
+
+            ticket.TicketId = ToInt(TicketIdTextBox.Text);
+            ticket.TipoTicket = ToInt(TipoTicketDropDownList.SelectedValue);
+            ticket.NombreEvento = NombreEventoTextBox.Text;
+            ticket.Cantidad = ToInt(CantidaTextBox.Text);
+            ticket.Precio = ToInt(PrecioTextBox.Text);
+
+            return ticket;
         }
 
         private void LlenarCampos(Ticket ticket)
         {
             TicketIdTextBox.Text = ticket.TicketId.ToString();
-            TipoTicketDropDownList.SelectedValue = ticket.TipoTicket;
+            TipoTicketDropDownList.SelectedValue = ticket.TipoTicket.ToString();
             NombreEventoTextBox.Text = ticket.NombreEvento;
             CantidaTextBox.Text = ticket.Cantidad.ToString();
             PrecioTextBox.Text = ticket.Precio.ToString();
@@ -79,10 +90,15 @@ namespace WebProjectTickets.Registros
             RepositorioBase<Ticket> repositorio = new RepositorioBase<Ticket>();
             Ticket ticket = repositorio.Buscar(ToInt(TicketIdTextBox.Text));
             if (ticket != null)
+            {
                 LlenarCampos(ticket);
+                Utils.ShowToastr(this.Page, "Busqueda exitosa", "Exito", "success");
+            }
             else
-                CallModal("Este Ticket no existe");
-
+            {
+                Limpiar();
+                Utils.ShowToastr(this.Page, "No Hay Resultado", "Error", "error");
+            }
         }
 
         protected void NuevoButton_Click(object sender, EventArgs e)
@@ -94,13 +110,13 @@ namespace WebProjectTickets.Registros
         {
             if (Page.IsValid)
             {
-                TicketRepositorio repositorio = new TicketRepositorio();
+                RepositorioBase<Ticket> repositorio = new RepositorioBase<Ticket>();
 
                 if (ToInt(TicketIdTextBox.Text) == 0)
                 {
                     if (repositorio.Guardar(LlenaClase()))
                     {
-                        CallModal("Se a registrado el Ticket");
+                        Utils.ShowToastr(this.Page, "Guardado", "Exito", "success");
                         Limpiar();
                     }
                 }
@@ -108,7 +124,7 @@ namespace WebProjectTickets.Registros
                 {
                     if (repositorio.Modificar(LlenaClase()))
                     {
-                        CallModal("Se no se pudo registrar el Ticket");
+                        Utils.ShowToastr(this.Page, "No se pudo guardar", "Error", "error");
                         Limpiar();
                     }
                 }
@@ -124,11 +140,11 @@ namespace WebProjectTickets.Registros
             {
                 if (repositorio.Eliminar(ToInt(TicketIdTextBox.Text)))
                 {
-                    CallModal("Se a eliminado el Ticket");
+                    Utils.ShowToastr(this.Page, "Eliminado", "Exito", "success");
                     Limpiar();
                 }
                 else
-                    CallModal("Se no se pudo eliminar el Ticket");
+                    Utils.ShowToastr(this.Page, "No se pudo eliminar", "Error", "error");
             }
         }
     }

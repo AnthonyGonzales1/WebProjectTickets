@@ -19,6 +19,14 @@ namespace WebProjectTickets.Utilitarios
             return retorno;
         }
 
+        public static int Importe(int cantidad, int precio)
+        {
+            int CalImporte = 0;
+            CalImporte = cantidad * precio;
+
+            return CalImporte;
+        }
+
         private static int ToIntObjetos(object valor)
         {
             int retorno = 0;
@@ -59,62 +67,62 @@ namespace WebProjectTickets.Utilitarios
         {
             Expression<Func<Cliente, bool>> filtro = p => true;
             RepositorioBase<Cliente> repositorio = new RepositorioBase<Cliente>();
-            List<Cliente> list = new List<Cliente>();
+            List<Cliente> lista = new List<Cliente>();
 
-            list = repositorio.GetList(filtro);
+            lista = repositorio.GetList(filtro);
 
-            return list;
+            return lista;
         }
 
         public static List<Ticket> tickets()
         {
             Expression<Func<Ticket, bool>> filtro = p => true;
             RepositorioBase<Ticket> repositorio = new RepositorioBase<Ticket>();
-            List<Ticket> list = new List<Ticket>();
+            List<Ticket> lista = new List<Ticket>();
 
-            list = repositorio.GetList(filtro);
+            lista = repositorio.GetList(filtro);
 
-            return list;
+            return lista;
         }
 
         public static List<TipoTicket> tipoTickets()
         {
             Expression<Func<TipoTicket, bool>> filtro = p => true;
             RepositorioBase<TipoTicket> repositorio = new RepositorioBase<TipoTicket>();
-            List<TipoTicket> list = new List<TipoTicket>();
+            List<TipoTicket> lista = new List<TipoTicket>();
 
-            list = repositorio.GetList(filtro);
+            lista = repositorio.GetList(filtro);
 
-            return list;
+            return lista;
         }
 
         public static List<Usuario> usuarios()
         {
             Expression<Func<Usuario, bool>> filtro = p => true;
             RepositorioBase<Usuario> repositorio = new RepositorioBase<Usuario>();
-            List<Usuario> list = new List<Usuario>();
+            List<Usuario> lista = new List<Usuario>();
 
-            list = repositorio.GetList(filtro);
+            lista = repositorio.GetList(filtro);
 
-            return list;
+            return lista;
         }
 
         public static List<VentaTicket> ventaTickets()
         {
             Expression<Func<VentaTicket, bool>> filtro = p => true;
             RepositorioBase<VentaTicket> repositorio = new RepositorioBase<VentaTicket>();
-            List<VentaTicket> list = new List<VentaTicket>();
+            List<VentaTicket> lista = new List<VentaTicket>();
 
-            list = repositorio.GetList(filtro);
+            lista = repositorio.GetList(filtro);
 
-            return list;
+            return lista;
         }
 
         public static List<Cliente> FiltrarCliente(int index, string buscar)
         {
             Expression<Func<Cliente, bool>> filtro = p => true;
             RepositorioBase<Cliente> repositorio = new RepositorioBase<Cliente>();
-            List<Cliente> list = new List<Cliente>();
+            List<Cliente> lista = new List<Cliente>();
 
             int id = ToInt(buscar);
             switch (index)
@@ -130,19 +138,17 @@ namespace WebProjectTickets.Utilitarios
                 case 4://Telefono
                     filtro = p => p.Telefono.Contains(buscar);
                     break;
-                case 5://Deuda
-                    filtro = p => p.Deuda.ToString().Contains(buscar);
-                    break;
+
             }
-            list = repositorio.GetList(filtro);
-            return list;
+            lista = repositorio.GetList(filtro);
+            return lista;
         }
 
         public static List<Ticket> FiltrarTicket(int index, string buscar)
         {
             Expression<Func<Ticket, bool>> filtro = p => true;
             RepositorioBase<Ticket> repositorio = new RepositorioBase<Ticket>();
-            List<Ticket> list = new List<Ticket>();
+            List<Ticket> lista = new List<Ticket>();
 
             int id = ToInt(buscar);
             switch (index)
@@ -153,27 +159,21 @@ namespace WebProjectTickets.Utilitarios
                     filtro = p => p.TicketId == id;
                     break;
                 case 2://TipoTicket
-                    filtro = p => p.TipoTicket.Contains(buscar);
+                    filtro = p => p.TipoTicket.ToString().Contains(buscar);
                     break;
                 case 3://NombreEvento
                     filtro = p => p.NombreEvento.Contains(buscar);
                     break;
-                case 4://Cantidad
-                    filtro = p => p.Cantidad.ToString().Contains(buscar);
-                    break;
-                case 5://Precio
-                    filtro = p => p.Precio.ToString().Contains(buscar);
-                    break;
             }
-            list = repositorio.GetList(filtro);
-            return list;
+            lista = repositorio.GetList(filtro);
+            return lista;
         }
 
         public static List<TipoTicket> FiltrarTipo(int index, string buscar, DateTime desde, DateTime hasta)
         {
             Expression<Func<TipoTicket, bool>> filtro = p => true;
             RepositorioBase<TipoTicket> repositorio = new RepositorioBase<TipoTicket>();
-            List<TipoTicket> list = new List<TipoTicket>();
+            List<TipoTicket> lista = new List<TipoTicket>();
 
             int id = ToInt(buscar);
             switch (index)
@@ -193,15 +193,15 @@ namespace WebProjectTickets.Utilitarios
                     filtro = p => p.Lugar.Contains(buscar) && p.Fecha >= desde && p.Fecha <= hasta;
                     break;
             }
-            list = repositorio.GetList(filtro);
-            return list;
+            lista = repositorio.GetList(filtro);
+            return lista;
         }
 
         public static List<Usuario> FiltrarUsuario(int index, string buscar)
         {
             Expression<Func<Usuario, bool>> filtro = p => true;
             RepositorioBase<Usuario> repositorio = new RepositorioBase<Usuario>();
-            List<Usuario> list = new List<Usuario>();
+            List<Usuario> lista = new List<Usuario>();
 
             int id = ToInt(buscar);
             switch (index)
@@ -217,19 +217,17 @@ namespace WebProjectTickets.Utilitarios
                 case 3://Email
                     filtro = p => p.Email.Contains(buscar);
                     break;
-                case 4://Clave
-                    filtro = p => p.Clave.ToString().Contains(buscar);
-                    break;
+
             }
-            list = repositorio.GetList(filtro);
-            return list;
+            lista = repositorio.GetList(filtro);
+            return lista;
         }
 
         public static List<VentaTicket> FiltrarVenta(int index, string buscar, DateTime desde, DateTime hasta)
         {
             Expression<Func<VentaTicket, bool>> filtro = p => true;
             RepositorioBase<VentaTicket> repositorio = new RepositorioBase<VentaTicket>();
-            List<VentaTicket> list = new List<VentaTicket>();
+            List<VentaTicket> lista = new List<VentaTicket>();
 
             int id = ToInt(buscar);
             switch (index)
@@ -239,24 +237,28 @@ namespace WebProjectTickets.Utilitarios
                 case 1://Todo por fecha
                     filtro = p => p.Fecha >= desde && p.Fecha <= hasta;
                     break;
-                case 2://TipoTicket
+                case 2://VentaTicket
                     filtro = p => p.VentaTicketId == id && p.Fecha >= desde && p.Fecha <= hasta;
                     break;
-                case 3://TipoTicket
+                case 3://Cliente
                     filtro = p => p.ClienteId == id && p.Fecha >= desde && p.Fecha <= hasta;
                     break;
-                case 4://TipoTicket
+                case 4://Ticket
                     filtro = p => p.TicketId == id && p.Fecha >= desde && p.Fecha <= hasta;
                     break;
-                case 5://Descripcion
-                    filtro = p => p.SubTotal.ToString().Contains(buscar) && p.Fecha >= desde && p.Fecha <= hasta;
-                    break;
-                case 6://Lugar
-                    filtro = p => p.Itbis.ToString().Contains(buscar) && p.Fecha >= desde && p.Fecha <= hasta;
-                    break;
+
             }
-            list = repositorio.GetList(filtro);
-            return list;
+            lista = repositorio.GetList(filtro);
+            return lista;
+        }
+        public static List<ConsultorioVenta> AddDetalle(int ID)
+        {
+            RepositorioBase<ConsultorioVenta> repositorioBase = new RepositorioBase<ConsultorioVenta>();
+            List<ConsultorioVenta> lista = new List<ConsultorioVenta>();
+            int id = ID;
+            lista = repositorioBase.GetList(c => c.VentaTicketId == id);
+
+            return lista;
         }
     }
 }

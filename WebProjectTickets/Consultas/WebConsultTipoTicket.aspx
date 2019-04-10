@@ -17,7 +17,10 @@
         </div>
         <div class="col-md-6 col-xs-8">
             <asp:DropDownList type="button" class="btn btn-dark dropdown-toggle" ID="FiltroDropDownList" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" runat="server">
-                <asp:ListItem>Seleccionar...</asp:ListItem>
+                <asp:ListItem>Todo</asp:ListItem>
+                <asp:ListItem>TipoTicketId</asp:ListItem>
+                <asp:ListItem>Descripcion</asp:ListItem>
+                <asp:ListItem>Lugar</asp:ListItem>
             </asp:DropDownList>
         </div>
     </div>
@@ -33,8 +36,10 @@
     </div>
     <div class="form-group">
         <div class="col-md-12">
-            <asp:Label ID="Label4" runat="server" Text="Desde">Desde:</asp:Label>
-            <asp:TextBox ID="DesdeTextBox" CssClass="form-control" TextMode="Date" placeholder="Desde" runat="server"></asp:TextBox>
+            <div class="col-lg-4">
+                <asp:Label ID="Label4" runat="server" Text="Desde">Desde:</asp:Label>
+                <asp:TextBox ID="DesdeTextBox" CssClass="form-control" TextMode="Date" placeholder="Desde" runat="server"></asp:TextBox>
+            </div>
         </div>
         <div class="col-lg-2"></div>
         <div class="col-lg-4">
@@ -45,10 +50,12 @@
     <asp:Label ID="ModalLabel" runat="server" Text="Modal"></asp:Label>
     <div class="form-group">
         <div class="table table-responsive col-md-12">
-            <asp:GridView ID="ClienteGridView" class="table table-bordered table-hover table-striped table-responsive" AutoGenerateColumns="False" runat="server" Height="67px">
+            <asp:GridView ID="TipoTicketGridView" class="table table-bordered table-hover table-striped table-responsive" AutoGenerateColumns="False" runat="server" Height="67px">
                 <Columns>
                     <asp:BoundField DataField="TipoTicketId" HeaderText="Tipo Ticket" />
-                    <asp:BoundField DataField="Descripcion" HeaderText="Lugar" />
+                    <asp:BoundField DataField="Descripcion" HeaderText="Descripcion" />
+                    <asp:BoundField DataField="Lugar" HeaderText="Lugar" />
+                    <asp:BoundField DataField="Fecha" HeaderText="Fecha" />
                 </Columns>
             </asp:GridView>
         </div>
@@ -57,7 +64,7 @@
         <div class="justify-content-start">
             <div class="col-md-6 col-xs-8">
                 <div class="form-group" style="display: inline-block">
-                    <asp:LinkButton ID="ImprimirLinkButton" data-toggle="modal" data-target=".bd-example-modal-lg" runat="server">LinkButton</asp:LinkButton>
+                    <asp:Button ID="ImprimirButton" data-toggle="modal" data-target=".bd-example-modal-lg" runat="server" Text="Imprimir" />
                 </div>
             </div>
         </div>

@@ -1,7 +1,10 @@
-﻿using Microsoft.Reporting.WebForms;
+﻿using BLL;
+using Entities;
+using Microsoft.Reporting.WebForms;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -11,6 +14,10 @@ namespace WebProjectTickets.Consultas
 {
     public partial class WebConsultCliente : System.Web.UI.Page
     {
+        Expression<Func<Cliente, bool>> filtro = p => true;
+        RepositorioBase<Cliente> repositorio = new RepositorioBase<Cliente>();
+        List<Cliente> lista = new List<Cliente>();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
@@ -35,7 +42,7 @@ namespace WebProjectTickets.Consultas
 
             ClienteReportViewer.LocalReport.ReportPath = Server.MapPath(@"~\Reportes\ClienteReport.rdlc");
             ClienteReportViewer.LocalReport.DataSources.Clear();
-            ClienteReportViewer.LocalReport.DataSources.Add(new ReportDataSource("Clientes", Utilitarios.Utils.clientes()));
+            ClienteReportViewer.LocalReport.DataSources.Add(new ReportDataSource("Cliente", lista));
             ClienteReportViewer.LocalReport.Refresh();
         }
 

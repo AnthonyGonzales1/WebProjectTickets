@@ -21,7 +21,7 @@ namespace Entities
         public int Importe { get; set; }
 
         [ForeignKey("ClienteId")]
-        public virtual Cliente Cliente { get; set; }
+        public virtual Cliente Clientes { get; set; }
 
         [ForeignKey("TicketId")]
         public virtual Ticket Tickets { get; set; }

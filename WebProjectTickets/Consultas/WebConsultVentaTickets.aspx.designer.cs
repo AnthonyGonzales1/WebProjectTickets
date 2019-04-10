@@ -112,13 +112,22 @@ namespace WebProjectTickets.Consultas {
         protected global::System.Web.UI.WebControls.Label ModalLabel;
         
         /// <summary>
-        /// ClienteGridView control.
+        /// VentaTicketGridView control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView ClienteGridView;
+        protected global::System.Web.UI.WebControls.GridView VentaTicketGridView;
+        
+        /// <summary>
+        /// ImprimirButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ImprimirButton;
         
         /// <summary>
         /// VentaTicketReportViewer control.

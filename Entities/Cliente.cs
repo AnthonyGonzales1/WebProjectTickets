@@ -24,17 +24,17 @@ namespace Entities
             Deuda = 0;
         }
 
-        public override string ToString()
-        {
-            return Nombres;
-        }
-
         public Cliente(int clienteId, string nombres, string telefono, int deuda)
         {
             ClienteId = clienteId;
             Nombres = nombres;
             Telefono = telefono;
             Deuda = deuda;
+        }
+
+        public override string ToString()
+        {
+            return Nombres;
         }
     }
 }

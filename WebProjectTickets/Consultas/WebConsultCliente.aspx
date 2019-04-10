@@ -17,7 +17,10 @@
         </div>
         <div class="col-md-6 col-xs-8">
             <asp:DropDownList type="button" class="btn btn-dark dropdown-toggle" ID="FiltroDropDownList" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" runat="server">
-                <asp:ListItem>Seleccionar...</asp:ListItem>
+                <asp:ListItem>Todo</asp:ListItem>
+                <asp:ListItem>ClienteId</asp:ListItem>
+                <asp:ListItem>Nombres</asp:ListItem>
+                <asp:ListItem>Telefono</asp:ListItem>
             </asp:DropDownList>
         </div>
     </div>
@@ -49,7 +52,7 @@
         <div class="justify-content-start">
             <div class="col-md-6 col-xs-8">
                 <div class="form-group" style="display: inline-block">
-                    <asp:LinkButton ID="ImprimirLinkButton"data-toggle="modal" data-target=".bd-example-modal-lg" runat="server">Imrpimir</asp:LinkButton>
+                    <asp:Button ID="ImprimirButton" data-toggle="modal" data-target=".bd-example-modal-lg" runat="server" Text="Imprimir" />
                 </div>
             </div>
         </div>

@@ -24,16 +24,17 @@ namespace Entities
             Fecha = DateTime.Now;
         }
 
-        public override string ToString()
-        {
-            return Descripcion;
-        }
-
-        public TipoTicket(int tipoTicketId, string descripcion, string lugar)
+        public TipoTicket(int tipoTicketId, string descripcion, string lugar, DateTime fecha)
         {
             TipoTicketId = tipoTicketId;
             Descripcion = descripcion;
             Lugar = lugar;
+            Fecha = fecha;
+        }
+
+        public override string ToString()
+        {
+            return Descripcion;
         }
     }
 }

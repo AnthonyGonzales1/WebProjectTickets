@@ -31,7 +31,7 @@ namespace BLL
                         contexto.Ticket.Find(item.TicketId).Cantidad -= item.Cantidad;
                     }
 
-                    contexto.Cliente.Find(ventaTicket.ClienteId).Deuda += Convert.ToInt32(ventaTicket.Total);
+                    contexto.Cliente.Find(ventaTicket.ClienteId).Deuda += ventaTicket.Total;
 
                     contexto.SaveChanges();
                     paso = true;
@@ -49,16 +49,23 @@ namespace BLL
         {
             Contexto contexto = new Contexto();
             var Cliente = contexto.Cliente.Find(ventaTicket.ClienteId);
-            var ClienteAnt = contexto.Cliente.Find(ventaTicketAnt.ClienteId);
+            var ClienteAnt = contexto.Cliente.Find(ventaTicketAnt.ClienteId); 
+            RepositorioBase<Cliente> repositorio = new RepositorioBase<Cliente>();
+            RepositorioBase<Cliente> repository = new RepositorioBase<Cliente>();
 
-            if (ClienteAnt.ClienteId != Cliente.ClienteId)
-            {
-                Cliente.Deuda += Convert.ToInt32(ventaTicket.Total);
-                ClienteAnt.Deuda -= Convert.ToInt32(ventaTicketAnt.Total);
-                contexto.Entry(Cliente).State =EntityState.Modified;
-                contexto.Entry(ClienteAnt).State = EntityState.Modified;
-                contexto.SaveChanges();
-            }
+            Cliente.Deuda += ventaTicket.Total;
+            ClienteAnt.Deuda -= ventaTicketAnt.Total;
+            repositorio.Modificar(Cliente);
+            repository.Modificar(ClienteAnt);
+        }
+
+        public static void Modifica(VentaTicket ventaTicket, VentaTicket VentaAnt, Contexto contexto)
+        {
+            double modificado = ventaTicket.Total - VentaAnt.Total;
+            RepositorioBase<Cliente> repositorio = new RepositorioBase<Cliente>();
+            var Cliente = contexto.Cliente.Find(ventaTicket.ClienteId);
+            Cliente.Deuda += Convert.ToInt32(modificado);
+            repositorio.Modificar(Cliente);
         }
 
         public override bool Modificar(VentaTicket ventaTicket)
@@ -66,49 +73,52 @@ namespace BLL
             bool paso = false;
 
             Contexto contexto = new Contexto();
-            try
-            {
-                var VentAnt = Buscar(ventaTicket.VentaTicketId);
-
-                ModificarBien(ventaTicket, VentAnt);
-
-                foreach (var item in VentAnt.Detalle)
+            RepositorioBase<VentaTicket> repositorio = new RepositorioBase<VentaTicket>();
+           try
                 {
-                    contexto.Ticket.Find(item.TicketId).Cantidad += item.Cantidad;
+                    var VentaAnt = repositorio.Buscar(ventaTicket.VentaTicketId);
 
-                    if (!ventaTicket.Detalle.ToList().Exists(v => v.Id == item.Id))
+                    if (ventaTicket.ClienteId != VentaAnt.ClienteId)
                     {
-                        item.Tickets = null;
-                        contexto.Entry(item).State = EntityState.Deleted;
+                        ModificarBien(ventaTicket, VentaAnt);
                     }
-                }
 
-                foreach (var item in ventaTicket.Detalle)
-                {
-                    contexto.Ticket.Find(item.TicketId).Cantidad -= item.Cantidad;
-                    var estado = item.Id > 0 ? EntityState.Modified : EntityState.Added;
-                    contexto.Entry(item).State = estado;
-                }
+                    if (ventaTicket != null)
+                    {
+                        foreach (var item in VentaAnt.Detalle)
+                        {
+                            contexto.Ticket.Find(item.TicketId).Cantidad += item.Cantidad;
 
-                VentaTicket VentaAnterior = Buscar(ventaTicket.VentaTicketId);
-                double modificado = ventaTicket.Total - VentaAnterior.Total;
+                            if (!ventaTicket.Detalle.ToList().Exists(v => v.Id == item.Id))
+                            {
+                                item.Tickets = null;
+                                contexto.Entry(item).State = EntityState.Deleted;
+                            }
+                        }
+                        contexto = new Contexto();
 
-                var cliente = contexto.Cliente.Find(ventaTicket.ClienteId);
-                cliente.Deuda += Convert.ToInt32(modificado);
-                contexto.Entry(cliente).State = EntityState.Modified;
-                contexto.SaveChanges();
+                        foreach (var item in ventaTicket.Detalle)
+                        {
+                            contexto.Ticket.Find(item.TicketId).Cantidad -= item.Cantidad;
+                            var estado = item.Id > 0 ? EntityState.Modified : EntityState.Added;
+                            contexto.Entry(item).State = estado;
+                        }
+                        contexto = new Contexto();
+                        contexto.Entry(ventaTicket).State = EntityState.Modified;
+                    }
 
-                contexto.Entry(ventaTicket).State = EntityState.Modified;
-                if (contexto.SaveChanges() > 0)
-                {
-                    paso = true;
-                }
-                contexto.Dispose();
+                    Modifica(ventaTicket, VentaAnt, contexto);
+
+                    if (contexto.SaveChanges() > 0)
+                    {
+                        paso = true;
+                    }
+                    contexto.Dispose();
             }
             catch (Exception)
             {
                 throw;
-            }
+            } 
             return paso;
         }
 
@@ -160,7 +170,7 @@ namespace BLL
 
                     foreach (var item in ventaTicket.Detalle)
                     {
-                        string ss = item.Cliente.Nombres;
+                        string ss = item.Clientes.Nombres;
                         string sss = item.Tickets.NombreEvento;
                     }
                 }
@@ -176,8 +186,20 @@ namespace BLL
 
         public override List<VentaTicket> GetList(Expression<Func<VentaTicket, bool>> expression)
         {
-            var lista = _contexto.VentaTicket.Include(x => x.Detalle).Where(expression).ToList();
-            return lista;
+            List<VentaTicket> list = new List<VentaTicket>();
+            Contexto contexto = new Contexto();
+
+            try
+            {
+                list = contexto.VentaTicket.Where(expression).ToList();
+                //contexto.Dispose();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            return list;
         }
 
         public static int Importe(int cantidad, int precio)

@@ -99,6 +99,7 @@
     <Content Include="Content\toastr.min.css" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="Logon.aspx" />
     <Content Include="Registros\WebFormCliente.aspx" />
     <Content Include="Registros\WebFormTickets.aspx" />
     <Content Include="Registros\WebFormTipoTicket.aspx" />
@@ -106,7 +107,10 @@
     <Content Include="Registros\WebFormVentaTickets.aspx" />
     <Content Include="Content\toastr.scss" />
     <Content Include="Content\toastr.less" />
+    <None Include="Properties\PublishProfiles\webprojectticket - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\webprojectticket - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Reportes\ClienteViewer.aspx" />
     <Content Include="Reportes\TicketViewer.aspx" />
     <Content Include="Reportes\TipoTicketViewer.aspx" />
     <Content Include="Reportes\UsuarioViewer.aspx" />
@@ -133,6 +137,7 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Login.aspx" />
     <Content Include="WebProjectTicketDbDataSet.xsc">
       <DependentUpon>WebProjectTicketDbDataSet.xsd</DependentUpon>
     </Content>
@@ -191,6 +196,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Logon.aspx.cs">
+      <DependentUpon>Logon.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Logon.aspx.designer.cs">
+      <DependentUpon>Logon.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Registros\WebFormCliente.aspx.cs">
       <DependentUpon>WebFormCliente.aspx</DependentUpon>
@@ -226,6 +238,13 @@
     </Compile>
     <Compile Include="Registros\WebFormVentaTickets.aspx.designer.cs">
       <DependentUpon>WebFormVentaTickets.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\ClienteViewer.aspx.cs">
+      <DependentUpon>ClienteViewer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Reportes\ClienteViewer.aspx.designer.cs">
+      <DependentUpon>ClienteViewer.aspx</DependentUpon>
     </Compile>
     <Compile Include="Reportes\TicketViewer.aspx.cs">
       <DependentUpon>TicketViewer.aspx</DependentUpon>
@@ -264,6 +283,13 @@
     </Compile>
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="Utilitarios\Utils.cs" />
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
     <Compile Include="WebProjectTicketDbDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -301,11 +327,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Reportes\ClienteReport.rdlc" />
-    <EmbeddedResource Include="Reportes\TicketsReport.rdlc" />
-    <EmbeddedResource Include="Reportes\TipoTicketsReport.rdlc" />
-    <EmbeddedResource Include="Reportes\UsuarioReport.rdlc" />
-    <EmbeddedResource Include="Reportes\VentaTicketReport.rdlc" />
+    <Content Include="Reportes\ClienteReport.rdlc" />
+    <Content Include="Reportes\TicketsReport.rdlc" />
+    <Content Include="Reportes\TipoTicketsReport.rdlc" />
+    <Content Include="Reportes\UsuarioReport.rdlc" />
+    <Content Include="Reportes\VentaTicketReport.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
